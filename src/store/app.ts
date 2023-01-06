@@ -18,6 +18,14 @@ export const useAppStore = defineStore("app", {
     },
     async signup(username: string, password: string) {
       this.account = await this.api.signup(username, password);
+      localStorage.setItem("api_key", this.account.apiKey);
+    },
+    async fetchLoggedInUser() {
+      const apiKey = localStorage.getItem("api_key");
+      if (!apiKey) {
+        return;
+      }
+      this.account = await this.api.getAccount(apiKey);
     },
   },
 });

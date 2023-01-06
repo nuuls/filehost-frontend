@@ -25,6 +25,9 @@ export default {
       username: computed(() => appStore.account?.username),
     }
   },
+  async mounted() {
+      await this.appStore.fetchLoggedInUser()
+  },
   methods: {
     async fakeLogin() {
       await this.appStore.login()

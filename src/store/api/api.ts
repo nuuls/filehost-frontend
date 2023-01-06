@@ -28,6 +28,10 @@ export class API {
       password,
     });
   }
+
+  async getAccount(apiKey: string): Promise<Account> {
+    return await this.get(`${this.endpoint}/v1/account?api_key=${apiKey}`);
+  }
 }
 
 export interface Account {
