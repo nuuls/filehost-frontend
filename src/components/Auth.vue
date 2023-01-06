@@ -16,21 +16,27 @@
 </template>
 
 <script lang="ts">
+import { useAppStore } from '@/store/app'
 
 export default {
   data: () => {
+    const appStore = useAppStore()
     return {
       valid: true,
       username: '',
-      password: ''
+      password: '',
+      appStore
     }
   },
   methods: {
-    login() {
-      console.log('logging in XD')
+    async login() {
+      await this.appStore.login()
+      this.username = this.appStore.account?.username || ''
     },
-    signup() {
-      console.log('signing up XD')
+    async signup() {
+      await this.appStore.signup(this.username, this.password)
+      console.log(this.appStore.account)
+      this.username = this.appStore.account?.username || ''
     },
   }
 }
