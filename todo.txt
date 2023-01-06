@@ -1,0 +1,31 @@
+Home view:
+	Show signed in status
+		if signed in:
+			Show username; links to profile page
+		else:
+			show Sign up / Login button
+	Show upload UI
+
+Sign up / Login view:
+	Username box
+	password box
+	Signup button
+	Login button
+
+Profile view:
+	Divided into tabs:
+		My uploads (default):
+			List of all uploads, sorted by createdAt
+		Settings:
+			Default expiry time
+			Show API key button
+		Domains:
+			Currently set default domain at the top pinned
+			List of my domains
+			Add domain button
+			List of available domains
+Domain view:
+	Details card at the top
+	If accessRequired:
+		Add user button
+		Users with access granted at the bottom
