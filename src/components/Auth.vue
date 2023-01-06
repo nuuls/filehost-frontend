@@ -2,7 +2,7 @@
   <v-container class="d-flex flex-row justify-center align-center h-screen">
     <v-form class="auth-form" ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="username" label="Username" required></v-text-field>
-      <v-text-field v-model="password" label="Password" required></v-text-field>
+      <v-text-field v-model="password" type="password" label="Password" required></v-text-field>
       <v-container class="d-flex w-100 justify-space-around">
         <v-btn @click="login()">
           Login
@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     async login() {
+      // TODO: implement
       await this.appStore.login()
       router.push('/')
     },
