@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import router from '@/router'
 import { useAppStore } from '@/store/app'
 
 export default {
@@ -31,12 +32,11 @@ export default {
   methods: {
     async login() {
       await this.appStore.login()
-      this.username = this.appStore.account?.username || ''
+      router.push('/')
     },
     async signup() {
       await this.appStore.signup(this.username, this.password)
-      console.log(this.appStore.account)
-      this.username = this.appStore.account?.username || ''
+      router.push('/')
     },
   }
 }

@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from "pinia";
-import { API } from "./api/api";
+import { Account, API } from "./api/api";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
@@ -21,9 +21,3 @@ export const useAppStore = defineStore("app", {
     },
   },
 });
-
-export interface Account {
-  id: number;
-  username: string;
-  apiKey: string;
-}

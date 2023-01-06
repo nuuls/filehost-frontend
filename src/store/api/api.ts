@@ -1,5 +1,3 @@
-import { Account } from "../app";
-
 export class API {
   endpoint: string;
 
@@ -30,4 +28,10 @@ export class API {
       password,
     });
   }
+}
+
+export interface Account {
+  id: number;
+  username: string;
+  apiKey: string;
 }

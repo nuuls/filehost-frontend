@@ -1,13 +1,37 @@
 <template>
   <v-app-bar flat>
     <v-app-bar-title>
-      <v-icon icon="mdi-circle-slice-6" />
-
-      Essentials Preset
+      i.nuuls.com
     </v-app-bar-title>
+    <v-btn v-if="!username" @click="goToSignup()">
+      Login / Signup
+    </v-btn>
+    <v-btn v-if="username" class="justify-self-right">
+      {{ username }}
+    </v-btn>
   </v-app-bar>
 </template>
 
-<script lang="ts" setup>
-  //
+<script lang="ts">
+import router from '@/router';
+import { useAppStore } from '@/store/app';
+import { computed } from 'vue';
+
+export default {
+  data: () => {
+    const appStore = useAppStore();
+    return {
+      appStore,
+      username: computed(() => appStore.account?.username),
+    }
+  },
+  methods: {
+    async fakeLogin() {
+      await this.appStore.login()
+    },
+    goToSignup() {
+      router.push('/auth')
+    }
+  }
+}
 </script>
