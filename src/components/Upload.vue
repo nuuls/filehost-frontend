@@ -17,6 +17,8 @@
         <v-code v-if="uploadComplete">
           {{ fileUrl }}
         </v-code>
+        <!-- TODO: add copy url button -->
+        <!-- TODO: add error messages -->
       </v-container>
       <!-- TODO: handle non-img data (text, sound, video) -->
       <v-img v-if="previewSrc" :src="previewSrc" class="preview"></v-img>
@@ -95,7 +97,7 @@ export default {
     },
     async uploadFile() {
       this.uploading = true
-      console.assert(this.selectedFile)
+      if (!this.selectedFile) return
       const res = await appStore.api.uploadFile(this.selectedFile, appStore.account?.apiKey, progess => this.uploadProgress = progess)
       this.completeUpload(res)
     },
