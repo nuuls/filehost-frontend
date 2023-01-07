@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     fileSelected(files: File[]) {
+      // TODO: reset all state to allow multiple uploads without reloading page
       const file = files[0]
       this.selectedFile = file
 

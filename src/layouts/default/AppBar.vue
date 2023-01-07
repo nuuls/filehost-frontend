@@ -6,7 +6,7 @@
     <v-btn v-if="!username" @click="goToSignup()">
       Login / Signup
     </v-btn>
-    <v-btn v-if="username" class="justify-self-right">
+    <v-btn v-if="username" class="justify-self-right" @click="goToProfile()">
       {{ username }}
     </v-btn>
   </v-app-bar>
@@ -34,6 +34,9 @@ export default {
     },
     goToSignup() {
       router.push('/auth')
+    },
+    goToProfile() {
+      router.push('/profile')
     }
   }
 }

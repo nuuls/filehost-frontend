@@ -33,6 +33,10 @@ export class API {
     return await this.get(`${this.endpoint}/v1/account?api_key=${apiKey}`);
   }
 
+  async getUploads(apiKey: string): Promise<GetUploadsResponse> {
+    return await this.get(`${this.endpoint}/v1/uploads?api_key=${apiKey}`);
+  }
+
   async uploadFile(
     file: File,
     apiKey?: string,
@@ -53,7 +57,7 @@ export class API {
           reject("Failed upload request");
         }
       });
-      xhr.open("POST", `${this.endpoint}/v1/uploads`);
+      xhr.open("POST", `${this.endpoint}/v1/uploads?api_key=${apiKey}`);
       xhr.send(data);
     });
   }
@@ -63,4 +67,18 @@ export interface Account {
   id: number;
   username: string;
   apiKey: string;
+}
+
+export interface GetUploadsResponse {
+  total: number;
+  data: [Upload];
+}
+
+export interface Upload {
+  id: number;
+  owner: any;
+  expiresAt: Date;
+  filename: string;
+  mimeType: string;
+  domain: any;
 }
