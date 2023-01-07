@@ -1,21 +1,27 @@
 <template>
-    <v-container class="justify-center align-start flex-column">
-      <v-file-input class="input" label="Select file" :model-value="files" @update:modelValue="fileSelected">
-      </v-file-input>
-      <v-container v-if="filename">
-        <v-container class="d-flex justify-space-between">
-          <h1>
-            {{ filename }}
-          </h1>
-          <h1>
-            {{ fileSize }}
-          </h1>
-        </v-container>
-        <v-img v-if="previewSrc" :src="previewSrc" class="preview"></v-img>
+  <v-container class="justify-center align-start flex-column h-screen">
+    <v-file-input class="input" label="Select file" :model-value="files" @update:modelValue="fileSelected">
+    </v-file-input>
+    <v-container v-if="filename" class="">
+      <v-container class="d-flex justify-space-between align-center">
+        <h1>
+          {{ filename }}
+        </h1>
+        <h1>
+          {{ fileSize }}
+        </h1>
+        <v-btn v-if="!uploading && !uploadComplete" @click="uploadFile()" color="success">
+          Upload
+        </v-btn>
+        <v-progress-circular v-if="uploading" v-model="uploadProgress" striped color="blue"></v-progress-circular>
+        <v-code v-if="uploadComplete">
+          {{ fileUrl }}
+        </v-code>
       </v-container>
+      <!-- TODO: handle non-img data (text, sound, video) -->
+      <v-img v-if="previewSrc" :src="previewSrc" class="preview"></v-img>
     </v-container>
-    <div class="dropzone" :ondrop="handleDrop" :ondragover="handleDragOver">
-    </div>
+  </v-container>
 </template>
 
 <style scoped>
@@ -23,17 +29,10 @@
   max-height: 400px;
   max-width: 100%;
 }
-.dropzone {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-}
 </style>
 
-<script lang="ts">import { humanFileSize } from '@/utils/utils';
-import { ref } from 'vue';
-
-const rootElement = ref(null)
+<script lang="ts">
+import { humanFileSize } from '@/utils/utils';
 
 export default {
   setup() {
@@ -44,11 +43,20 @@ export default {
       previewSrc: '',
       filename: '',
       fileSize: '',
-      previewLoading: false
+      previewLoading: false,
+      uploading: false,
+      uploadProgress: 0,
+      uploadComplete: false,
+      fileUrl: '',
     }
   },
   mounted() {
+    // TODO: this will probably bite me in the ass at some point?
+    const body = document.body
+    body.ondragover = this.handleDragOver
+    body.ondrop = this.handleDrop
 
+    // TODO: handle onpaste
   },
   methods: {
     fileSelected(files: File[]) {
@@ -79,6 +87,21 @@ export default {
     },
     handleDragOver(event: Event) {
       event.preventDefault()
+    },
+    uploadFile() {
+      this.uploading = true
+      setInterval(() => {
+        this.uploadProgress += 1;
+        if (this.uploadProgress > 100) {
+          this.completeUpload('https://i.nuuls.com/SfS9q.png')
+        }
+      }, 50)
+    },
+    completeUpload(fileUrl: string) {
+      this.uploadComplete = true
+      this.fileUrl = fileUrl
+      this.uploading = false
+      this.uploadProgress = 0
     }
   },
 }
