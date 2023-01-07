@@ -33,6 +33,9 @@
 
 <script lang="ts">
 import { humanFileSize } from '@/utils/utils';
+import { useAppStore } from '@/store/app';
+
+const appStore = useAppStore()
 
 export default {
   setup() {
@@ -40,6 +43,7 @@ export default {
   data: () => {
     return {
       files: [],
+      selectedFile: null as File | null,
       previewSrc: '',
       filename: '',
       fileSize: '',
@@ -61,6 +65,7 @@ export default {
   methods: {
     fileSelected(files: File[]) {
       const file = files[0]
+      this.selectedFile = file
 
       this.filename = file.name;
       this.fileSize = humanFileSize(file.size)
@@ -88,14 +93,11 @@ export default {
     handleDragOver(event: Event) {
       event.preventDefault()
     },
-    uploadFile() {
+    async uploadFile() {
       this.uploading = true
-      setInterval(() => {
-        this.uploadProgress += 1;
-        if (this.uploadProgress > 100) {
-          this.completeUpload('https://i.nuuls.com/SfS9q.png')
-        }
-      }, 50)
+      console.assert(this.selectedFile)
+      const res = await appStore.api.uploadFile(this.selectedFile, appStore.account?.apiKey, progess => this.uploadProgress = progess)
+      this.completeUpload(res)
     },
     completeUpload(fileUrl: string) {
       this.uploadComplete = true
