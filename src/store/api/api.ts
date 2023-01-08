@@ -1,8 +1,14 @@
+const apiUrls: { [key: string]: string } = {
+  "beta.nuuls.com": "https://beta.i.nuuls.com",
+  "nuuls.com": "https://i.nuuls.com",
+};
+
 export class API {
   endpoint: string;
 
   constructor() {
-    this.endpoint = "http://localhost:7417";
+    this.endpoint =
+      apiUrls[window.location.hostname] || "http://localhost:7417";
   }
 
   async post(url: string, body: any): Promise<any> {

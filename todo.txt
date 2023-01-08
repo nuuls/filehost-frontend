@@ -29,3 +29,13 @@ Domain view:
 	If accessRequired:
 		Add user button
 		Users with access granted at the bottom
+
+TODO for MVP release:
+Code:
+	- Login
+	- Show API key
+
+Deployment:
+	- Deploy Postgres
+	- Create New subdomain for frontend
+	- Deploy frontend (build on server or upload static build?)
