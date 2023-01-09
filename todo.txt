@@ -32,7 +32,6 @@ Domain view:
 
 TODO for MVP release:
 Code:
-	- Login
 	- Show API key
 	- Add copy url button after uploading
 	- Handle errors

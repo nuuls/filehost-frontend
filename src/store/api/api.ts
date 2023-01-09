@@ -35,6 +35,13 @@ export class API {
     });
   }
 
+  async login(username: string, password: string): Promise<Account> {
+    return await this.post(`${this.endpoint}/v1/login`, {
+      username,
+      password,
+    });
+  }
+
   async getAccount(apiKey: string): Promise<Account> {
     return await this.get(`${this.endpoint}/v1/account?api_key=${apiKey}`);
   }

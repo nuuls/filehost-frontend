@@ -31,8 +31,7 @@ export default {
   },
   methods: {
     async login() {
-      // TODO: implement
-      await this.appStore.login()
+      await this.appStore.login(this.username, this.password)
       router.push('/')
     },
     async signup() {

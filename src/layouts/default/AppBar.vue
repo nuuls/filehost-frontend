@@ -29,9 +29,6 @@ export default {
       await this.appStore.fetchLoggedInUser()
   },
   methods: {
-    async fakeLogin() {
-      await this.appStore.login()
-    },
     goToSignup() {
       router.push('/auth')
     },

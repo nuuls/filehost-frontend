@@ -9,12 +9,9 @@ export const useAppStore = defineStore("app", {
     account: null as Account | null,
   }),
   actions: {
-    async login() {
-      this.account = {
-        id: 1,
-        username: "nuuls",
-        apiKey: "test",
-      };
+    async login(username: string, password: string) {
+      this.account = await this.api.login(username, password);
+      localStorage.setItem("api_key", this.account.apiKey);
     },
     async signup(username: string, password: string) {
       this.account = await this.api.signup(username, password);
