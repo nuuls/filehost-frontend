@@ -2,12 +2,14 @@
   <v-app-bar flat>
     <v-app-bar-title>
       <router-link to="/" class="invis-link">
-        i.nuuls.com
+        nuuls.com
       </router-link>
     </v-app-bar-title>
-    <v-btn v-if="!username" @click="goToSignup()">
-      Login / Signup
-    </v-btn>
+    <router-link v-if="!username" class="invis-link" to="/auth">
+      <v-btn>
+        Login / Signup
+      </v-btn>
+    </router-link>
     <router-link to="/profile" class="invis-link">
       <v-btn v-if="username" class="justify-self-right">
         {{ username }}
@@ -24,7 +26,6 @@
 </style>
 
 <script lang="ts">
-import router from '@/router';
 import { useAppStore } from '@/store/app';
 import { computed } from 'vue';
 
@@ -40,15 +41,6 @@ export default {
       await this.appStore.fetchLoggedInUser()
   },
   methods: {
-    goToSignup() {
-      router.push('/auth')
-    },
-    goToProfile() {
-      router.push('/profile')
-    },
-    goToMain() {
-      router.push('/')
-    }
   }
 }
 </script>
