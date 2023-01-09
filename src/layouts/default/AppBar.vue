@@ -1,16 +1,27 @@
 <template>
   <v-app-bar flat>
-    <v-app-bar-title @click="goToMain()">
-      i.nuuls.com
+    <v-app-bar-title>
+      <router-link to="/" class="invis-link">
+        i.nuuls.com
+      </router-link>
     </v-app-bar-title>
     <v-btn v-if="!username" @click="goToSignup()">
       Login / Signup
     </v-btn>
-    <v-btn v-if="username" class="justify-self-right" @click="goToProfile()">
-      {{ username }}
-    </v-btn>
+    <router-link to="/profile" class="invis-link">
+      <v-btn v-if="username" class="justify-self-right">
+        {{ username }}
+      </v-btn>
+    </router-link>
   </v-app-bar>
 </template>
+
+<style scoped>
+.invis-link {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
 
 <script lang="ts">
 import router from '@/router';
