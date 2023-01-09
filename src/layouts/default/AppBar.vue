@@ -1,6 +1,6 @@
 <template>
   <v-app-bar flat>
-    <v-app-bar-title>
+    <v-app-bar-title @click="goToMain()">
       i.nuuls.com
     </v-app-bar-title>
     <v-btn v-if="!username" @click="goToSignup()">
@@ -37,6 +37,9 @@ export default {
     },
     goToProfile() {
       router.push('/profile')
+    },
+    goToMain() {
+      router.push('/')
     }
   }
 }

@@ -1,10 +1,10 @@
 const apiUrls: { [key: string]: string } = {
-  "beta.nuuls.com": "https://beta.i.nuuls.com",
+  "beta.nuuls.com": "https://beta-i.nuuls.com",
   "nuuls.com": "https://i.nuuls.com",
 };
 
 export class API {
-  endpoint: string;
+  public endpoint: string;
 
   constructor() {
     this.endpoint =
@@ -63,7 +63,10 @@ export class API {
           reject("Failed upload request");
         }
       });
-      xhr.open("POST", `${this.endpoint}/v1/uploads?api_key=${apiKey}`);
+      xhr.open(
+        "POST",
+        `${this.endpoint}/v1/uploads?${apiKey ? "api_key=" + apiKey : ""}`
+      );
       xhr.send(data);
     });
   }

@@ -1,9 +1,9 @@
 <template>
-  <v-container class="justify-center align-start flex-column h-screen">
+  <v-container class="upload-main justify-center align-center flex-column h-screen">
     <v-file-input class="input" label="Select file" :model-value="files" @update:modelValue="fileSelected">
     </v-file-input>
-    <v-container v-if="filename" class="">
-      <v-container class="d-flex justify-space-between align-center">
+    <v-container v-if="filename" class="meta-container">
+      <v-container class="d-flex flex-wrap justify-space-around align-center">
         <h1>
           {{ filename }}
         </h1>
@@ -27,6 +27,13 @@
 </template>
 
 <style scoped>
+.upload-main {
+  max-width: 600px;
+}
+.meta-container * {
+  margin-left: 4px;
+  margin-right: 4px;
+}
 .preview {
   max-height: 400px;
   max-width: 100%;

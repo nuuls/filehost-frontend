@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex">
+  <v-container class="d-flex flex-wrap justify-center">
     <v-card v-for="upload in uploads" class="upload-card ma-4">
      <v-container class="card-top-bar d-flex justify-center align-center">
       <v-card-title>
@@ -44,11 +44,15 @@ export default {
     }
   },
   async mounted() {
-    appStore.$subscribe((mut, state) => {
-      if (state.account && !this.loaded) {
-        this.loadUploads().then()
-      }
-    })
+    if (appStore.account) {
+      this.loadUploads().then()
+    } else {
+      appStore.$subscribe((mut, state) => {
+        if (state.account && !this.loaded) {
+          this.loadUploads().then()
+        }
+      })
+    }
   },
   methods: {
     async loadUploads() {
@@ -59,12 +63,7 @@ export default {
       this.loaded = true
     },
     getUrl(upload: Upload): string {
-      if (Math.random() > 0.5) {
-        return 'https://i.nuuls.com/iwg-H.png'
-      } else {
-        return 'https://i.nuuls.com/TH0Js.png'
-      }
-      return `http://localhost:7417/${upload.filename}`
+      return `${appStore.api.endpoint}/${upload.filename}`
     }
   }
 

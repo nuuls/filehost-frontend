@@ -34,8 +34,5 @@ TODO for MVP release:
 Code:
 	- Login
 	- Show API key
-
-Deployment:
-	- Deploy Postgres
-	- Create New subdomain for frontend
-	- Deploy frontend (build on server or upload static build?)
+	- Add copy url button after uploading
+	- Handle errors
