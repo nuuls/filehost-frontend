@@ -1,9 +1,9 @@
 <template>
   <v-app-bar class="">
     <div class="d-flex justify-space-between w-100 h-100 align-center">
-      <a href="/" class="logo mx-4">
+      <router-link to="/" class="logo mx-4">
         <img src="/nuuls-logo.png" class="logo">
-      </a>
+      </router-link>
       <router-link v-if="!username" class="invis-link" to="/auth">
         <v-btn>
           Login / Signup
