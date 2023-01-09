@@ -20,12 +20,17 @@ const routes = [
         name: "Profile",
         component: () => import("@/views/Profile.vue"),
       },
+      {
+        path: "/login",
+        name: "Login",
+        component: () => import("@/views/Login.vue"),
+      },
+      {
+        path: "/signup",
+        name: "Signup",
+        component: () => import("@/views/Signup.vue"),
+      },
     ],
-  },
-  {
-    path: "/auth",
-    name: "Auth",
-    component: () => import("@/views/Auth.vue"),
   },
 ];
 
