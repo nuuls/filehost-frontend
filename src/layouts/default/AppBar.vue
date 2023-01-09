@@ -1,20 +1,20 @@
 <template>
-  <v-app-bar flat>
-    <v-app-bar-title>
-      <router-link to="/" class="invis-link">
-        nuuls.com
+  <v-app-bar class="">
+    <div class="d-flex justify-space-between w-100 h-100 align-center">
+      <a href="/" class="logo mx-4">
+        <img src="/nuuls-logo.png" class="logo">
+      </a>
+      <router-link v-if="!username" class="invis-link" to="/auth">
+        <v-btn>
+          Login / Signup
+        </v-btn>
       </router-link>
-    </v-app-bar-title>
-    <router-link v-if="!username" class="invis-link" to="/auth">
-      <v-btn>
-        Login / Signup
-      </v-btn>
-    </router-link>
-    <router-link to="/profile" class="invis-link">
-      <v-btn v-if="username" class="justify-self-right">
-        {{ username }}
-      </v-btn>
-    </router-link>
+      <router-link to="/profile" class="invis-link mx-4">
+        <v-btn v-if="username" class="justify-self-right">
+          {{ username }}
+        </v-btn>
+      </router-link>
+    </div>
   </v-app-bar>
 </template>
 
@@ -22,6 +22,9 @@
 .invis-link {
   text-decoration: none;
   color: inherit;
+}
+.logo {
+  height: 64px;
 }
 </style>
 
