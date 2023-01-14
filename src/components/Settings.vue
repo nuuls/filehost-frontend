@@ -3,19 +3,19 @@
     <v-container v-if="account">
       <h2 class="text-h4">Account Info</h2>
       <v-container class="flex-column">
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-space-between">
           Username:
           <v-code class="ma-1">
             {{ account.username }}
           </v-code>
         </div>
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-space-between">
           User ID:
           <v-code class="ma-1">
             {{ account.id }}
           </v-code>
         </div>
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-space-between">
           API Key:
           <div class="ma-1">
             <v-btn v-if="!showApiKey" @click="showApiKey = true">
@@ -31,7 +31,7 @@
     <v-container>
       <h2 class="text-h4">Domain settings</h2>
       <v-container class="flex-column" v-if="domain">
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-space-between">
           Currently using:
           <v-code class="ma-1">
             {{ domain.domain }}
@@ -42,7 +42,7 @@
     <v-container>
       <h2 class="text-h4">Upload settings</h2>
       <v-container class="flex-column" v-if="account">
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-space-between">
           Files expire after:
           <v-code class="ma-1">
             {{ humanDefaultExpiry }}
