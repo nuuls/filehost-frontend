@@ -1,7 +1,7 @@
 <template>
-  <v-container class="d-flex flex-column justify-center align-center h-100">
+  <v-container class="d-flex flex-column justify-center align-center h-100 flex-wrap settings-container">
     <v-container v-if="account">
-      <h2>Account Info</h2>
+      <h2 class="text-h4">Account Info</h2>
       <v-container class="flex-column">
         <div class="d-flex align-center">
           Username:
@@ -29,7 +29,7 @@
       </v-container>
     </v-container>
     <v-container>
-      <h2>Domain settings</h2>
+      <h2 class="text-h4">Domain settings</h2>
       <v-container class="flex-column" v-if="domain">
         <div class="d-flex align-center">
           Currently using:
@@ -40,7 +40,7 @@
       </v-container>
     </v-container>
     <v-container>
-      <h2>Upload settings</h2>
+      <h2 class="text-h4">Upload settings</h2>
       <v-container class="flex-column" v-if="account">
         <div class="d-flex align-center">
           Files expire after:
@@ -54,7 +54,9 @@
 </template>
 
 <style scoped>
-
+.settings-container {
+  max-width: fit-content;
+}
 </style>
 
 <script lang="ts">
