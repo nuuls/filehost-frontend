@@ -106,7 +106,8 @@ export default {
     async uploadFile() {
       this.uploading = true
       if (!this.selectedFile) return
-      const res = await appStore.api.uploadFile(this.selectedFile, appStore.account?.apiKey, progess => this.uploadProgress = progess)
+      const acc = await (appStore.account.catch(() => Promise.resolve(null)))
+      const res = await appStore.api.uploadFile(this.selectedFile, acc?.apiKey, progess => this.uploadProgress = progess)
       this.completeUpload(res)
     },
     completeUpload(fileUrl: string) {

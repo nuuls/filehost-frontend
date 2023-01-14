@@ -43,7 +43,6 @@
 <script lang="ts">
 import { Account } from '@/store/api/api';
 import { useAppStore } from '@/store/app';
-import { computed } from 'vue';
 
 const appStore = useAppStore()
 
@@ -54,7 +53,7 @@ export default {
     }
   },
   async mounted() {
-    this.account = await appStore.account
+    this.account = await (appStore.account.catch(() => Promise.resolve(null)))
   },
   methods: {
   }

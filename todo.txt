@@ -35,3 +35,5 @@ Code:
 	- Show API key
 	- Add copy url button after uploading
 	- Handle errors
+	- Handle onpaste
+	- Handle previews and upload view for non-images

@@ -44,19 +44,11 @@ export default {
     }
   },
   async mounted() {
-    if (appStore.account) {
-      this.loadUploads().then()
-    } else {
-      appStore.$subscribe((mut, state) => {
-        if (state.account && !this.loaded) {
-          this.loadUploads().then()
-        }
-      })
-    }
+    await this.loadUploads()
   },
   methods: {
     async loadUploads() {
-      const apiKey = appStore.account?.apiKey;
+      const apiKey = (await appStore.account).apiKey;
       if (!apiKey) return
       const res = await appStore.api.getUploads(apiKey)
       this.uploads = res.data
