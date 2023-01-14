@@ -9,3 +9,17 @@ export function humanFileSize(bytes: number): string {
     return `${Math.floor(bytes / 1000 / 1000 / 1000)} GB`;
   }
 }
+
+export function humanDuration(seconds: number): string {
+  if (seconds < 60) {
+    return `${seconds} Seconds`;
+  } else if (seconds / 60 < 60) {
+    return `${seconds / 60} Minutes`;
+  } else if (seconds / 60 / 60 < 24) {
+    return `${seconds / 60 / 60} Hours`;
+  } else if (seconds / 60 / 60 / 24 < 365) {
+    return `${seconds / 60 / 60 / 24} Days`;
+  } else {
+    return `${seconds / 60 / 60 / 24 / 365} Years`;
+  }
+}

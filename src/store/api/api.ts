@@ -50,6 +50,12 @@ export class API {
     return await this.get(`${this.endpoint}/v1/uploads?api_key=${apiKey}`);
   }
 
+  async getDomain(id: number, apiKey: string): Promise<Domain> {
+    return await this.get(
+      `${this.endpoint}/v1/domains/${id}?api_key=${apiKey}`
+    );
+  }
+
   async uploadFile(
     file: File,
     apiKey?: string,
@@ -83,6 +89,13 @@ export interface Account {
   id: number;
   username: string;
   apiKey: string;
+  defaultDomainId: number;
+  defaultExpiryHours: number;
+}
+
+export interface Domain {
+  id: number;
+  domain: string;
 }
 
 export interface GetUploadsResponse {

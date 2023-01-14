@@ -5,19 +5,24 @@
         <img src="/nuuls-logo.png" class="logo">
       </router-link>
       <div class="d-flex justify-space-between">
-        <router-link v-if="!username" class="invis-link" to="/signup">
+        <router-link v-if="!account" class="invis-link" to="/signup">
           <v-btn>
             Sign up
           </v-btn>
         </router-link>
-        <router-link v-if="!username" class="invis-link" to="/login">
+        <router-link v-if="!account" class="invis-link" to="/login">
           <v-btn>
             Login
           </v-btn>
         </router-link>
-        <router-link to="/profile" class="invis-link mx-4">
-            <v-btn v-if="username" class="justify-self-right">
-              {{ username }}
+        <router-link v-if="account" to="/settings" class="invis-link mx-4">
+            <v-btn class="justify-self-right">
+              Settings
+            </v-btn>
+        </router-link>
+        <router-link v-if="account" to="/profile" class="invis-link mx-4">
+            <v-btn class="justify-self-right">
+              My Uploads
             </v-btn>
         </router-link>
       </div>
@@ -36,19 +41,20 @@
 </style>
 
 <script lang="ts">
+import { Account } from '@/store/api/api';
 import { useAppStore } from '@/store/app';
 import { computed } from 'vue';
 
+const appStore = useAppStore()
+
 export default {
   data: () => {
-    const appStore = useAppStore();
     return {
-      appStore,
-      username: computed(() => appStore.account?.username),
+      account: null as Account | null
     }
   },
   async mounted() {
-      await this.appStore.fetchLoggedInUser()
+    this.account = await appStore.account
   },
   methods: {
   }
