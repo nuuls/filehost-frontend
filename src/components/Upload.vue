@@ -75,8 +75,10 @@ export default {
     const body = document.body
     body.ondragover = this.handleDragOver
     body.ondrop = this.handleDrop
+    body.onpaste = this.handlePaste
 
-    // TODO: handle onpaste
+
+    // TODO: remove handlers on unmount?
   },
   methods: {
     resetState() {
@@ -105,14 +107,21 @@ export default {
     handleDrop(event: DragEvent) {
       event.preventDefault()
       console.log(event)
-      const dataTransfer = event.dataTransfer
+      this.handleDataTransfer(event.dataTransfer)
+    },
+    handlePaste(event: ClipboardEvent) {
+      event.preventDefault()
+      console.log(event)
+      this.handleDataTransfer(event.clipboardData)
+    },
+    handleDragOver(event: Event) {
+      event.preventDefault()
+    },
+    handleDataTransfer(dataTransfer: DataTransfer|null) {
       if (!dataTransfer) return
       const file = dataTransfer.files[0]
       if (!file) return
       this.fileSelected([file])
-    },
-    handleDragOver(event: Event) {
-      event.preventDefault()
     },
     async uploadFile() {
       this.uploading = true
@@ -129,6 +138,7 @@ export default {
     },
     copyUrl() {
       navigator.clipboard.writeText(this.fileUrl)
+      // TODO: show toast: copied to clipboard or something
     }
   },
 }

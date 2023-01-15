@@ -33,5 +33,4 @@ Domain view:
 TODO for MVP release:
 Code:
 	- Handle errors
-	- Handle onpaste
 	- Handle previews and upload view for non-images
