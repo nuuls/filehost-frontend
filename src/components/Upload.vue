@@ -1,6 +1,7 @@
 <template>
   <v-container class="upload-main justify-center align-center flex-column h-screen">
-    <v-file-input class="input" label="Select file" :model-value="files" @update:modelValue="fileSelected">
+    <h1 class="text-h3 ma-4">Upload a file</h1>
+    <v-file-input class="input" label="Click here, Drag and Drop or paste from clipboard" :model-value="files" @update:modelValue="fileSelected">
     </v-file-input>
     <v-container v-if="filename" class="meta-container">
       <v-container class="d-flex flex-wrap justify-space-around align-center">
@@ -17,7 +18,6 @@
         <a :href="fileUrl" target="_blank" v-if="uploadComplete">
           {{ fileUrl }}
         </a>
-        <!-- TODO: add copy url button -->
         <v-btn color="success" v-if="fileUrl" @click="copyUrl()">
           Copy
         </v-btn>
