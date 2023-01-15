@@ -49,22 +49,26 @@ import { useAppStore } from '@/store/app';
 
 const appStore = useAppStore()
 
+function initialState() {
+  return {
+    files: [],
+    selectedFile: null as File | null,
+    previewSrc: '',
+    filename: '',
+    fileSize: '',
+    previewLoading: false,
+    uploading: false,
+    uploadProgress: 0,
+    uploadComplete: false,
+    fileUrl: '',
+  }
+}
+
 export default {
   setup() {
   },
   data: () => {
-    return {
-      files: [],
-      selectedFile: null as File | null,
-      previewSrc: '',
-      filename: '',
-      fileSize: '',
-      previewLoading: false,
-      uploading: false,
-      uploadProgress: 0,
-      uploadComplete: false,
-      fileUrl: '',
-    }
+    return initialState()
   },
   mounted() {
     // TODO: this will probably bite me in the ass at some point?
@@ -75,8 +79,12 @@ export default {
     // TODO: handle onpaste
   },
   methods: {
+    resetState() {
+      Object.assign(this.$data, initialState())
+    },
     fileSelected(files: File[]) {
-      // TODO: reset all state to allow multiple uploads without reloading page
+      this.resetState()
+
       const file = files[0]
       this.selectedFile = file
 

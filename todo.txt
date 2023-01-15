@@ -32,8 +32,6 @@ Domain view:
 
 TODO for MVP release:
 Code:
-	- Reset all uploader state when selecting a new image
-		to allow multiple uploads without refreshing
 	- Handle errors
 	- Handle onpaste
 	- Handle previews and upload view for non-images
