@@ -32,7 +32,8 @@ Domain view:
 
 TODO for MVP release:
 Code:
-	- Add copy url button after uploading
+	- Reset all uploader state when selecting a new image
+		to allow multiple uploads without refreshing
 	- Handle errors
 	- Handle onpaste
 	- Handle previews and upload view for non-images

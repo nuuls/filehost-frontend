@@ -14,10 +14,13 @@
           Upload
         </v-btn>
         <v-progress-circular v-if="uploading" v-model="uploadProgress" striped color="blue"></v-progress-circular>
-        <v-code v-if="uploadComplete">
+        <a :href="fileUrl" target="_blank" v-if="uploadComplete">
           {{ fileUrl }}
-        </v-code>
+        </a>
         <!-- TODO: add copy url button -->
+        <v-btn color="success" v-if="fileUrl" @click="copyUrl()">
+          Copy
+        </v-btn>
         <!-- TODO: add error messages -->
       </v-container>
       <!-- TODO: handle non-img data (text, sound, video) -->
@@ -28,7 +31,7 @@
 
 <style scoped>
 .upload-main {
-  max-width: 600px;
+  max-width: 800px;
 }
 .meta-container * {
   margin-left: 4px;
@@ -115,6 +118,9 @@ export default {
       this.fileUrl = fileUrl
       this.uploading = false
       this.uploadProgress = 0
+    },
+    copyUrl() {
+      navigator.clipboard.writeText(this.fileUrl)
     }
   },
 }
