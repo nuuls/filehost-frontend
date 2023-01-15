@@ -1,16 +1,16 @@
 <template>
-  <v-container class="d-flex flex-wrap justify-center">
+  <div class="d-flex flex-wrap justify-center w-100">
     <v-card v-for="upload in uploads" class="upload-card ma-4">
      <v-container class="card-top-bar d-flex justify-center align-center">
       <v-card-title>
         {{ upload.filename }}
       </v-card-title>
      </v-container>
-     <v-container class="img-container d-flex justify-center align-center flex-grow-1 ma-0 pa-0">
+     <v-container class="img-container d-flex justify-center align-center ma-0 pa-0">
       <v-img :src="getUrl(upload)" class="card-img"></v-img>
      </v-container>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <style scoped>
