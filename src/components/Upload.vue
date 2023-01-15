@@ -5,7 +5,7 @@
     </v-file-input>
     <v-container v-if="filename" class="meta-container">
       <v-container class="d-flex flex-wrap justify-space-around align-center">
-        <h1>
+        <h1 class="text-truncate">
           {{ filename }}
         </h1>
         <h1>
@@ -15,7 +15,7 @@
           Upload
         </v-btn>
         <v-progress-circular v-if="uploading" v-model="uploadProgress" striped color="blue"></v-progress-circular>
-        <a :href="fileUrl" target="_blank" v-if="uploadComplete">
+        <a :href="fileUrl" target="_blank" v-if="uploadComplete" class="ma-2">
           {{ fileUrl }}
         </a>
         <v-btn color="success" v-if="fileUrl" @click="copyUrl()">
