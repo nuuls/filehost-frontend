@@ -16,6 +16,11 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
       },
       {
+        path: "/:pathMatch(.*)*",
+        name: "Fallback",
+        component: () => import("@/views/Home.vue"),
+      },
+      {
         path: "/profile",
         name: "Profile",
         component: () => import("@/views/Profile.vue"),
