@@ -40,6 +40,11 @@ const routes = [
         name: "Signup",
         component: () => import("@/views/Signup.vue"),
       },
+      {
+        path: "/3rdPartyUploaders",
+        name: "ThirdParty",
+        component: () => import("@/views/ThirdParty.vue"),
+      },
     ],
   },
 ];
