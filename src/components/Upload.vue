@@ -21,8 +21,10 @@
         <v-btn color="success" v-if="fileUrl" @click="copyUrl()">
           Copy
         </v-btn>
-        <!-- TODO: add error messages -->
       </v-container>
+      <v-alert v-if="errorMessage" class="ma-4" color="error" icon="$error">
+        {{ errorMessage }}
+      </v-alert>
       <!-- TODO: handle non-img data (text, sound, video) -->
       <v-img v-if="previewSrc" :src="previewSrc" class="preview"></v-img>
     </v-container>
@@ -61,6 +63,7 @@ function initialState() {
     uploadProgress: 0,
     uploadComplete: false,
     fileUrl: '',
+    errorMessage: '',
   }
 }
 
@@ -76,8 +79,6 @@ export default {
     body.ondragover = this.handleDragOver
     body.ondrop = this.handleDrop
     body.onpaste = this.handlePaste
-
-
     // TODO: remove handlers on unmount?
   },
   methods: {
@@ -126,9 +127,13 @@ export default {
     async uploadFile() {
       this.uploading = true
       if (!this.selectedFile) return
-      const acc = await (appStore.account.catch(() => Promise.resolve(null)))
-      const res = await appStore.api.uploadFile(this.selectedFile, acc?.apiKey, progess => this.uploadProgress = progess)
-      this.completeUpload(res)
+      try {
+        const acc = await (appStore.account.catch(() => Promise.resolve(null)))
+        const res = await appStore.api.uploadFile(this.selectedFile, acc?.apiKey, progess => this.uploadProgress = progess)
+        this.completeUpload(res)
+      } catch (err: any) {
+        this.errorMessage = err?.data?.message || `An unexpected error occurred: ${err}`
+      }
     },
     completeUpload(fileUrl: string) {
       this.uploadComplete = true

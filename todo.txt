@@ -31,9 +31,6 @@ Domain view:
 		Users with access granted at the bottom
 
 TODO:
-	- Handle errors:
-		- upload failed
-		- login / signup failed
 	- Handle previews and upload view for non-images
 	- Allow Enter button on login and signup
 	- 3rd party uploader instructions:

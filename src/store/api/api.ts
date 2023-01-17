@@ -98,9 +98,21 @@ export class API {
       xhr.addEventListener("loadend", () => {
         if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
           resolve(xhr.responseText);
-        } else {
-          reject("Failed upload request");
+          return;
         }
+
+        let message = "Connection to server failed";
+
+        if (xhr.status >= 400) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            message = data?.message || xhr.statusText;
+          } catch (err) {
+            message = xhr.statusText;
+          }
+        }
+
+        reject(`${message}`);
       });
       xhr.open(
         "POST",
