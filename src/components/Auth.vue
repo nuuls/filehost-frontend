@@ -34,6 +34,7 @@ export default {
       password: '',
       passwordConfirm: '',
       errorMessage: '',
+      errorTimeout: null as any,
       appStore
     }
   },
@@ -57,11 +58,13 @@ export default {
       } catch (err: APIError|any) {
         const message = err?.body?.message || 'An unexpected error occurred';
         this.errorMessage = message
-        setTimeout(() => {
-          // dont reset if another error occurred in the meanwhile
-          if (this.errorMessage === message) {
-            this.errorMessage = ''
-          }
+
+        if (this.errorTimeout) {
+          clearTimeout(this.errorTimeout)
+        }
+        this.errorTimeout = setTimeout(() => {
+          this.errorMessage = ''
+          this.errorTimeout = null
         }, 3000)
       }
     },
