@@ -49,7 +49,7 @@ export default {
         }
 
         if (this.password !== this.passwordConfirm) {
-          alert('Passwords do not match XD')
+          this.setError('Passwords do not match')
           return
         }
 
@@ -57,17 +57,20 @@ export default {
         router.push('/')
       } catch (err: APIError|any) {
         const message = err?.body?.message || 'An unexpected error occurred';
-        this.errorMessage = message
-
-        if (this.errorTimeout) {
-          clearTimeout(this.errorTimeout)
-        }
-        this.errorTimeout = setTimeout(() => {
-          this.errorMessage = ''
-          this.errorTimeout = null
-        }, 3000)
+        this.setError(message)
       }
     },
+    setError(message: string) {
+      this.errorMessage = message
+
+      if (this.errorTimeout) {
+        clearTimeout(this.errorTimeout)
+      }
+      this.errorTimeout = setTimeout(() => {
+        this.errorMessage = ''
+        this.errorTimeout = null
+      }, 3000)
+    }
   }
 }
 
