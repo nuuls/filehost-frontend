@@ -3,13 +3,23 @@ const apiUrls: { [key: string]: string } = {
   "nuuls.com": "https://i.nuuls.com",
 };
 
+interface APIErrorBody {
+  status: number;
+  statusCode: string;
+  message: string;
+  data: any | null;
+}
+
 export class APIError {
   public status: number;
+  public body: APIErrorBody;
 
-  constructor(opts: { status: number }) {
-    this.status = opts.status;
+  constructor(res: Response, body: APIErrorBody) {
+    this.status = res.status;
+    this.body = body;
   }
 }
+
 export class API {
   public endpoint: string;
 
@@ -18,31 +28,30 @@ export class API {
       apiUrls[window.location.hostname] || "http://localhost:7417";
   }
 
-  async post(url: string, body: any): Promise<any> {
+  async doFetch(method: string, url: string, body?: any): Promise<any> {
     return await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then((res) => {
+      method,
+      headers: body
+        ? {
+            "Content-Type": "application/json",
+          }
+        : {},
+      body: body ? JSON.stringify(body) : null,
+    }).then(async (res) => {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(new APIError({ status: res.status }));
+      const body = await res.json();
+      return Promise.reject(new APIError(res, body));
     });
   }
 
+  async post(url: string, body: any): Promise<any> {
+    return await this.doFetch("POST", url, body);
+  }
+
   async get(url: string) {
-    return await fetch(url, {
-      method: "GET",
-      headers: {},
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(new APIError({ status: res.status }));
-    });
+    return await this.doFetch("GET", url);
   }
 
   async signup(username: string, password: string): Promise<Account> {
