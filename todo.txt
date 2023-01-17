@@ -30,7 +30,35 @@ Domain view:
 		Add user button
 		Users with access granted at the bottom
 
-TODO for MVP release:
-Code:
-	- Handle errors
+TODO:
+	- Handle errors:
+		- upload failed
+		- login / signup failed
 	- Handle previews and upload view for non-images
+	- Allow Enter button on login and signup
+	- 3rd party uploader instructions:
+	- My uploads:
+		- Click to expand:
+			- Created at
+			- Size
+			- Delete button
+		- Make filename open link in new tab
+		- Show views
+		- Load images from selected domain
+	- Domain selector
+	- Logout
+	- Delete links for anon users (/v2/upload)
+	- Expiry and cold storage
+
+{
+  "Version": "14.0.1",
+  "Name": "nuuls v2 beta",
+  "DestinationType": "ImageUploader, TextUploader, FileUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "https://i.nuuls.com/upload",
+  "Parameters": {
+    "api_key": "XD"
+  },
+  "Body": "MultipartFormData",
+  "FileFormName": "abc"
+}

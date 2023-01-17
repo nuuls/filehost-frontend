@@ -1,7 +1,11 @@
 // Utilities
-import { STATUS_CODES } from "http";
 import { defineStore } from "pinia";
-import { Account, API, Domain } from "./api/api";
+import { Account, API, APIError, Domain } from "./api/api";
+
+function logout() {
+  localStorage.removeItem("api_key");
+  window.location.pathname = "/";
+}
 
 export const useAppStore = defineStore("app", {
   state: () => ({
@@ -21,6 +25,9 @@ export const useAppStore = defineStore("app", {
       localStorage.setItem("api_key", this._account.apiKey);
       window.location.pathname = "/";
     },
+    logout() {
+      logout();
+    },
     async fetchLoggedInUser() {
       const apiKey = localStorage.getItem("api_key");
       if (!apiKey) {
@@ -36,7 +43,15 @@ export const useAppStore = defineStore("app", {
       if (!apiKey) {
         return Promise.reject("Not logged in");
       }
-      this._account = await this.api.getAccount(apiKey);
+      try {
+        this._account = await this.api.getAccount(apiKey);
+      } catch (err) {
+        console.log("get account error:", err);
+        if (err instanceof APIError && err.status === 401) {
+          logout();
+        }
+        return Promise.reject(err);
+      }
       return this._account;
     },
     async defaultDomain(): Promise<Domain> {

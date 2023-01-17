@@ -3,6 +3,13 @@ const apiUrls: { [key: string]: string } = {
   "nuuls.com": "https://i.nuuls.com",
 };
 
+export class APIError {
+  public status: number;
+
+  constructor(opts: { status: number }) {
+    this.status = opts.status;
+  }
+}
 export class API {
   public endpoint: string;
 
@@ -18,14 +25,24 @@ export class API {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((res) => res.json());
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(new APIError({ status: res.status }));
+    });
   }
 
   async get(url: string) {
     return await fetch(url, {
       method: "GET",
       headers: {},
-    }).then((res) => res.json());
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(new APIError({ status: res.status }));
+    });
   }
 
   async signup(username: string, password: string): Promise<Account> {

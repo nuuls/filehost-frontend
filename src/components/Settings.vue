@@ -26,6 +26,13 @@
             </v-code>
           </div>
         </div>
+        <div class="d-flex align-center justify-center">
+          <div class="ma-1">
+            <v-btn color="error" @click="logout()">
+              Logout
+            </v-btn>
+          </div>
+        </div>
       </v-container>
     </v-container>
     <v-container>
@@ -80,7 +87,9 @@ export default {
     this.humanDefaultExpiry = humanDuration(this.account.defaultExpiryHours * 60 * 60)
   },
   methods: {
-    nam() {}
+    logout() {
+      appStore.logout()
+    }
   }
 }
 </script>
