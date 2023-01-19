@@ -8,12 +8,7 @@
       </v-card-title>
      </v-container>
      <v-container class="img-container d-flex justify-center align-center ma-0 pa-0">
-      <v-img v-if="getFileType() === 'image'" :src="getUrl(upload)" class="card-img"></v-img>
-      <video v-if="getFileType() === 'video'" :src="getUrl(upload)" controls class="card-img"></video>
-      <audio v-if="getFileType() === 'audio'" :src="getUrl(upload)" controls class="card-img"></audio>
-      <p v-if="getFileType() === 'unknown'">
-        Preview unavailable
-      </p>
+      <FileViewer :src="getUrl(upload)" :mime-type="upload.mimeType"></FileViewer>
      </v-container>
     </v-card>
 </template>
@@ -29,33 +24,25 @@
 .img-container {
   height: 280px;
 }
-.card-img {
-  max-height: 100%;
-  max-width: 100%;
-}
+
 </style>
 
 <script lang="ts">
 import { Upload } from '@/store/api/api';
 import { useAppStore } from '@/store/app';
+import FileViewer from './FileViewer.vue';
 
 const appStore = useAppStore()
 
 const previewable = ['image', 'video', 'audio']
 
 export default {
-  props: ['upload'],
-  methods: {
-    getUrl(upload: Upload): string {
-      return `${appStore.api.endpoint}/${upload.filename}`;
+    props: ["upload"],
+    methods: {
+        getUrl(upload: Upload): string {
+            return `${appStore.api.endpoint}/${upload.filename}`;
+        },
     },
-    getFileType(): string {
-      const part1 = this.upload.mimeType.split('/')[0]
-      if (previewable.includes(part1)) {
-        return part1
-      }
-      return 'unknown'
-    }
-  }
+    components: { FileViewer }
 }
 </script>
