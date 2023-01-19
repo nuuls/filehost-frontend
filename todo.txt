@@ -31,7 +31,6 @@ Domain view:
 		Users with access granted at the bottom
 
 TODO:
-	- Handle previews and upload view for non-images
 	- 3rd party uploader instructions:
 	- My uploads:
 		- Click to expand:
