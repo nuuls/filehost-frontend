@@ -54,6 +54,10 @@ export class API {
     return await this.doFetch("GET", url);
   }
 
+  async delete(url: string) {
+    return await this.doFetch("DELETE", url);
+  }
+
   async signup(username: string, password: string): Promise<Account> {
     return await this.post(`${this.endpoint}/v1/signup`, {
       username,
@@ -74,6 +78,12 @@ export class API {
 
   async getUploads(apiKey: string): Promise<GetUploadsResponse> {
     return await this.get(`${this.endpoint}/v1/uploads?api_key=${apiKey}`);
+  }
+
+  async deleteUpload(filename: string, apiKey: string): Promise<Upload> {
+    return await this.delete(
+      `${this.endpoint}/v1/uploads/${filename}?api_key=${apiKey}`
+    );
   }
 
   async getDomain(id: number, apiKey: string): Promise<Domain> {

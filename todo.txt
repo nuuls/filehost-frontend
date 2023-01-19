@@ -40,6 +40,13 @@ TODO:
 		- Make filename open link in new tab
 		- Show views
 		- Load images from selected domain
+	- Add About and FAQ section:
+		- Deletion policy
+		- Request a file to be deleted
+		- Report bugs
+		- Contribute
+		- Contact
+
 	- Domain selector
 	- Delete links for anon users (/v2/upload)
 	- Expiry and cold storage
